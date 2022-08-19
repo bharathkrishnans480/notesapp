@@ -10,7 +10,7 @@ from django.http import HttpResponse
 # Create your views here.
 class CreateNotesView(CreateView):
     model=Notes
-    template_name = "mynotes.html"
+    template_name = "index.html"
     form_class = MyNotesForm
     success_url = "home"
     def form_valid(self, form):
@@ -21,14 +21,12 @@ class CreateNotesView(CreateView):
         context=super().get_context_data(**kwargs)
         context["notes"]=Notes.objects.all().order_by("-posted_date")              #assigning a key "notes" and calling all objects from database and order_by for sorting,- for ascending order
         return context
-class Notes2View(TemplateView):
-    template_name = "notes.html"
 
 
 
 class EditNotesView(View):
     model=Notes
-    template_name = "mynotes.html"
+    template_name = "index.html"
     form_class = MyNotesForm
     success_url = "home"
     def get(self, request, *args, **kwargs):
