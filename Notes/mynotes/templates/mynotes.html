@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/79d75a6f68.js" crossorigin="anonymous"></script>
+<link href="{%static 'css/style.css'%}" rel="stylesheet"/>
+</head>
+<body id="'bg" style="background-image: url('https://cdn.windowsreport.com/wp-content/uploads/2020/01/Sticky-Notes-930x620.jpg');">
+<form action="" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <h1 class="text-center text-danger">Something in Mind!! Add it here</h1>
+<!--    create icon-->
+        <div class="card" style="width: 18rem;" id="id_card">
+            <div class="card-body">
+                <h5 class="card-title">Add a Note</h5>
+                <h6 class="card-subtitle mb-2 text-muted"></h6>
+                <p class="card-text"><i class="fas fa-plus-circle fa-6x btn" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></p>
+
+            </div>
+            <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create a Note</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          {{form.as_p}}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add my note</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--    notes-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootstrap snippets bootdey mt-4">
+    <div class="row">
+		<ul class="notes">
+            {%for note in notes%}
+            <li>
+                <div class="rotate-1 lazur-bg">
+                    <small>{{note.posted_date}}</small>
+                    <a href="{%url 'note-edit' note.id%}"><i class="fa-solid fa-pen-to-square 3x"></i> edit</a>
+                    <a href="{%url 'delete' note.id%}" class="text-danger pull-right"><i class="fa fa-trash-o "></i></a>
+                    <h4 class="text-light">{{note.title}}</h4>
+                    <p>{{note.description}}</p>
+                    {%if note.image%}
+                    <img src="{{note.image.url}}" alt="" width="75%">
+                    {%endif%}
+
+                </div>
+                {%endfor%}
+            </li>
+<!--Demo-->
+            <li>
+                <div class="rotate-2 red-bg">
+                    <small>12:03:28 12-04-2014</small>
+                    <h4>Awesome date</h4>
+                    <p>The years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                    <a href="#" class="text-danger pull-right"><i class="fa fa-trash-o "></i></a>
+                </div>
+            </li>
+            <li>
+                <div class="rotate-1 yellow-bg">
+                    <small>12:03:28 12-04-2014</small>
+                    <h4>Awesome project</h4>
+                    <p>The years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                    <a href="#" class="text-danger pull-right"><i class="fa fa-trash-o "></i></a>
+                </div>
+            </li>
+		</ul>
+
+	</div>
+</div>
+</form>
+</body>
+</html>
